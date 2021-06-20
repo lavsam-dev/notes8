@@ -7,17 +7,20 @@ public class Note implements Parcelable {
 
     private final String id;
     private final String title;
+    private final String text;
     private final String url;
 
-    public Note(String id, String title, String url) {
+    public Note(String id, String title, String text, String url) {
         this.id = id;
         this.title = title;
+        this.text = text;
         this.url = url;
     }
 
     protected Note(Parcel in) {
         id = in.readString();
         title = in.readString();
+        text = in.readString();
         url = in.readString();
     }
 
@@ -25,6 +28,7 @@ public class Note implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(title);
+        dest.writeString(text);
         dest.writeString(url);
     }
 
@@ -52,6 +56,8 @@ public class Note implements Parcelable {
     public String getTitle() {
         return title;
     }
+
+    public String getText() { return text; }
 
     public String getUrl() {
         return url;
