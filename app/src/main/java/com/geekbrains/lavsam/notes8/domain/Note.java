@@ -5,6 +5,17 @@ import android.os.Parcelable;
 
 public class Note implements Parcelable {
 
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
     private final String id;
     private final String title;
     private final String text;
@@ -37,18 +48,6 @@ public class Note implements Parcelable {
         return 0;
     }
 
-    public static final Creator<Note> CREATOR = new Creator<Note>() {
-        @Override
-        public Note createFromParcel(Parcel in) {
-            return new Note(in);
-        }
-
-        @Override
-        public Note[] newArray(int size) {
-            return new Note[size];
-        }
-    };
-
     public String getId() {
         return id;
     }
@@ -57,7 +56,9 @@ public class Note implements Parcelable {
         return title;
     }
 
-    public String getText() { return text; }
+    public String getText() {
+        return text;
+    }
 
     public String getUrl() {
         return url;

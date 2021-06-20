@@ -14,10 +14,10 @@
             app:title="@string/notes_title" />
     </com.google.android.material.appbar.AppBarLayout>
 
-           <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/notes_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notes_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

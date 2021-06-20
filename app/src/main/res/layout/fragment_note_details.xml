@@ -26,10 +26,10 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/detail_img_height"
             android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginTop="1dp"
+            android:layout_marginTop="@dimen/one_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            android:layout_marginBottom="1dp"
-            android:scaleType="centerInside"
+            android:layout_marginBottom="@dimen/one_margin"
+            android:scaleType="centerCrop"
             tools:src="@drawable/ic_launcher_background" />
 
         <androidx.core.widget.NestedScrollView

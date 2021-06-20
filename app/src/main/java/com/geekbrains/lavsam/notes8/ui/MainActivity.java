@@ -1,12 +1,10 @@
 package com.geekbrains.lavsam.notes8.ui;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 
 import com.geekbrains.lavsam.notes8.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
