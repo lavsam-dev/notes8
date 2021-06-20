@@ -7,7 +7,6 @@ public class Note implements Parcelable {
 
     private final String id;
     private final String title;
-
     private final String url;
 
     public Note(String id, String title, String url) {
