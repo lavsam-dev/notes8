@@ -4,24 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.geekbrains.lavsam.notes8.R;
 import com.geekbrains.lavsam.notes8.domain.Note;
 import com.geekbrains.lavsam.notes8.domain.NotesRepository;
 import com.geekbrains.lavsam.notes8.domain.NotesRepositoryImpl;
 import com.geekbrains.lavsam.notes8.ui.MainActivity;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 

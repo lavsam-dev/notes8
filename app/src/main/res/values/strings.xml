@@ -2,7 +2,8 @@
     <string name="app_name">Notes8</string>
     <string name="action_notes">notes</string>
     <string name="action_info">info</string>
-    <string name="i_m_info">I\'m info</string>
-    <string name="notes_title">Notes8</string>
+    <string name="i_m_info">Заметки о птицах Самарской области</string>
+    <string name="notes_title">Заметки</string>
     <string name="i_am_a_header_here">I\'m a header here</string>
+    <string name="i_am_a_text_here">Text about birds</string>
 </resources>
