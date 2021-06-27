@@ -1,6 +1,7 @@
 package com.geekbrains.lavsam.notes8.ui.notes;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,10 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.geekbrains.lavsam.notes8.R;
+import com.geekbrains.lavsam.notes8.RouterHolder;
 import com.geekbrains.lavsam.notes8.domain.Note;
 import com.geekbrains.lavsam.notes8.domain.NotesRepository;
 import com.geekbrains.lavsam.notes8.domain.NotesRepositoryImpl;
 import com.geekbrains.lavsam.notes8.ui.MainActivity;
+import com.geekbrains.lavsam.notes8.ui.MainRouter;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +31,9 @@ public class NotesFragment extends Fragment {
     private NotesRepository repository = NotesRepositoryImpl.INSTANCE;
     private NotesAdapter notesAdapter;
 
+    private int longClickedIndex;
+    private Note longClickedNote;
+
     public static NotesFragment newInstance() {
         return new NotesFragment();
     }
@@ -37,6 +43,27 @@ public class NotesFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         notesAdapter = new NotesAdapter(this);
+
+        notesAdapter.setListener(new NotesAdapter.OnNoteClickedListener() {
+            @Override
+            public void onNoteClickedListener(@NonNull Note note) {
+
+                if (requireActivity() instanceof MainActivity) {
+                    MainRouter router = ((RouterHolder) requireActivity()).getMainRouter();
+
+                    router.showNoteDetail(note);
+                }
+//                Snackbar.make(view, note.getTitle(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        notesAdapter.setLongClickedListener(new NotesAdapter.OnNoteLongClickedListener() {
+            @Override
+            public void onNoteLongClickedListener(@NonNull Note note, int index) {
+                longClickedIndex = index;
+                longClickedNote = note;
+            }
+        });
     }
 
     @Nullable
@@ -88,18 +115,36 @@ public class NotesFragment extends Fragment {
 
         notesAdapter.setData(notes);
 
-        notesAdapter.setListener(new NotesAdapter.OnNoteClickedListener() {
-            @Override
-            public void onNoteClickedListener(@NonNull Note note) {
+    }
 
-                if (requireActivity() instanceof MainActivity) {
-                    MainActivity mainActivity = (MainActivity) requireActivity();
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
 
-                    mainActivity.getRouter().showNoteDetail(note);
-                }
-//                Snackbar.make(view, note.getTitle(), Snackbar.LENGTH_SHORT).show();
+        requireActivity().getMenuInflater().inflate(R.menu.menu_notes_context, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_update) {
+
+            if (requireActivity() instanceof RouterHolder) {
+                MainRouter router = ((RouterHolder) requireActivity()).getMainRouter();
+
+                router.showEditNote(longClickedNote);
             }
-        });
+
+            return true;
+        }
+
+        if (item.getItemId() == R.id.action_delete) {
+
+            repository.remove(longClickedNote);
+            notesAdapter.remove(longClickedNote);
+            notesAdapter.notifyItemRemoved(longClickedIndex);
+            return true;
+        }
+        return super.onContextItemSelected(item);
 
     }
 }

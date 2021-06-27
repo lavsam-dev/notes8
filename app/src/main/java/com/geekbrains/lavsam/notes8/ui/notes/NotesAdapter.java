@@ -22,8 +22,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     private final Fragment fragment;
     private ArrayList<Note> notes = new ArrayList<>();
     private OnNoteClickedListener listener;
+    private OnNoteLongClickedListener longClickedListener;
 
-    public NotesAdapter(Fragment fragment) { this.fragment = fragment; }
+    public NotesAdapter(Fragment fragment) {
+        this.fragment = fragment;
+    }
+
+    public OnNoteLongClickedListener getLongClickedListener() {
+        return longClickedListener;
+    }
+
+    public void setLongClickedListener(OnNoteLongClickedListener longClickedListener) {
+        this.longClickedListener = longClickedListener;
+    }
 
     public void setData(List<Note> toSet) {
         notes.clear();
@@ -58,6 +69,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         return notes.size();
     }
 
+    public void remove(Note longClickedNote) { notes.remove(longClickedNote); }
+
     public int add(Note addedNote) {
         notes.add(addedNote);
         return notes.size() - 1;
@@ -65,6 +78,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     public interface OnNoteClickedListener {
         void onNoteClickedListener(@NonNull Note note);
+    }
+
+    public interface OnNoteLongClickedListener {
+        void onNoteLongClickedListener(@NonNull Note note, int index);
     }
 
     class NoteViewHolder extends RecyclerView.ViewHolder {
@@ -75,12 +92,27 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            fragment.registerForContextMenu(itemView);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (getListener() != null) {
                         getListener().onNoteClickedListener(notes.get(getAdapterPosition()));
                     }
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    itemView.showContextMenu();
+
+                    if (getLongClickedListener() != null) {
+                        int index = getAdapterPosition();
+                        getLongClickedListener().onNoteLongClickedListener(notes.get(index), index);
+                    }
+                    return true;
                 }
             });
 

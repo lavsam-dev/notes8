@@ -7,15 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.geekbrains.lavsam.notes8.R;
+import com.geekbrains.lavsam.notes8.RouterHolder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RouterHolder {
 
     private MainRouter router;
-
-    public MainRouter getRouter() {
-        return router;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,4 +41,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public MainRouter getMainRouter() { return router; }
 }
