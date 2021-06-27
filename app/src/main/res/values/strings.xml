@@ -6,4 +6,11 @@
     <string name="notes_title">Заметки</string>
     <string name="i_am_a_header_here">I\'m a header here</string>
     <string name="i_am_a_text_here">Text about birds</string>
+    <string name="action_add">Add</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_update">Update</string>
+    <string name="action_delete">Delete</string>
+    <string name="update_fragment">Fragment Update</string>
+    <string name="title_hint">Title</string>
+    <string name="action_done">Done</string>
 </resources>
