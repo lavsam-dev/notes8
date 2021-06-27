@@ -2,15 +2,15 @@ package com.geekbrains.lavsam.notes8.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class NotesRepositoryImpl implements NotesRepository {
 
     public static final NotesRepository INSTANCE = new NotesRepositoryImpl();
 
-    @Override
-    public List<Note> getNotes() {
-        ArrayList<Note> notes = new ArrayList<>();
+    private final ArrayList<Note> notes = new ArrayList<>();
 
+    public NotesRepositoryImpl() {
         notes.add(new Note("id1", "Европейский тювик (Accipiter brevipes)",
                 "Европейский тювик является хищной лесной птицей и перелетным видом, с приближением зимы эти пернатые собираются в крупные стаи и отправляются в теплые края. Размеры тювика европейского средние, длина тела достигает 40 см, средний размах крыльев около 70 см, вес до 200 г. Оперение верха тела самца светло-серое, белоснежное горло украшено темными узорами, грудка рыжая. Самка окрашена в серо-коричневый цвет на спинке, белое горло украшает темная продольная полоса, низ тела светлый с каштановыми пестринами. Европейский тювик относится к активны дневным хищникам и ведет охоту на земноводных, грызунов, птиц мелких размеров и на крупных насекомых. Добычу ловит с воздуха.",
                 "https://www.niasam.ru/allimages/109815.jpg"));
@@ -47,7 +47,22 @@ public class NotesRepositoryImpl implements NotesRepository {
         notes.add(new Note("id12", "Обыкновенная чечевица (Carpodacus erythrinus)",
                 "В лесах Самарской области рядом с открытыми просторами живет оседло обыкновенная чечевица – птичка, по размерам примерно, как домовой воробей. Встретить ее можно в зарослях кустарника на лесных опушках или рядом с водоемом. А так как большую часть времени эта кроха усердно скрывается от посторонних глаз, то ее присутствие выдает обычно короткая переливчатая свистящая трель, состоящая из набора характерных звуков, складывающихся в слова «виитю-виидел». Верх тела самцы обыкновенной чечевицы красновато-бурый, голова и грудка яркие алые, животик бело-розовый. Оперение у самочек скромное, буровато-серого цвета со светлым животиком.",
                 "https://www.niasam.ru/allimages/109826.jpg"));
+    }
 
+    @Override
+    public List<Note> getNotes() {
         return notes;
+    }
+
+    @Override
+    public void clear() {
+        notes.clear();
+    }
+
+    @Override
+    public Note add(String title, String text, String imageUrl) {
+        Note note = new Note(UUID.randomUUID().toString(), title, text, imageUrl);
+        notes.add(note);
+        return note;
     }
 }
