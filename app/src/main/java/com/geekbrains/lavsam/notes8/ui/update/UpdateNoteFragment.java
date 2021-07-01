@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.geekbrains.lavsam.notes8.R;
 import com.geekbrains.lavsam.notes8.RouterHolder;
 import com.geekbrains.lavsam.notes8.domain.Note;
+import com.geekbrains.lavsam.notes8.domain.NotesFirestoreRepository;
 import com.geekbrains.lavsam.notes8.domain.NotesRepository;
 import com.geekbrains.lavsam.notes8.domain.NotesRepositoryImpl;
 import com.geekbrains.lavsam.notes8.ui.MainRouter;
@@ -28,7 +29,7 @@ public class UpdateNoteFragment extends Fragment {
     public static final String UPDATE_RESULT = "UPDATE_RESULT";
     public static final String ARG_NOTE = "ARG_NOTE";
 
-    private final NotesRepository repository = NotesRepositoryImpl.INSTANCE;
+    private final NotesRepository repository = NotesFirestoreRepository.INSTANCE;
 
     private int selectedYear = -1;
     private int selectedMonthOfYear = -1;
@@ -75,7 +76,7 @@ public class UpdateNoteFragment extends Fragment {
                         selectedDate = calendar.getTime();
                     }
 
-                    repository.update(note, title.getText().toString(), selectedDate);
+                    repository.update(note, title.getText().toString(), "", selectedDate);
 
                     if (requireActivity() instanceof RouterHolder) {
                         MainRouter router = ((RouterHolder) getActivity()).getMainRouter();

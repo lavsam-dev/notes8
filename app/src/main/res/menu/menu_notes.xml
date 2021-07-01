@@ -13,4 +13,10 @@
         android:title="@string/action_clear"
         android:icon="@drawable/ic_clear"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_restore"
+        android:title="@string/action_restore"
+        android:icon="@drawable/ic_restore"
+        app:showAsAction="never"/>
 </menu>
