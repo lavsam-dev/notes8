@@ -5,9 +5,11 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentResultListener;
 
 import com.geekbrains.lavsam.notes8.R;
 import com.geekbrains.lavsam.notes8.RouterHolder;
+import com.geekbrains.lavsam.notes8.ui.auth.AuthFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements RouterHolder {
@@ -19,13 +21,13 @@ public class MainActivity extends AppCompatActivity implements RouterHolder {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
         router = new MainRouter(getSupportFragmentManager());
 
         if (savedInstanceState == null) {
             router.showNotes();
         }
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -40,6 +42,15 @@ public class MainActivity extends AppCompatActivity implements RouterHolder {
                 return true;
             }
         });
+
+        getSupportFragmentManager().setFragmentResultListener(AuthFragment.AUTH_RESULT, this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull  String requestKey, @NonNull  Bundle result) {
+                router.showNotes();
+            }
+        });
+
+        router.showNotes();
     }
 
     @Override

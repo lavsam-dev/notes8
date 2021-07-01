@@ -7,13 +7,18 @@ import java.util.Date;
 import java.util.List;
 
 public interface NotesRepository {
-    List<Note> getNotes();
+
+    void getNotes(Callback<List<Note>> callback);
 
     void clear();
 
-    Note add(String title, String text, String imageUrl);
+    void restore();
 
-    void remove(Note note);
+    void add(String title, String text, String imageUrl, Callback<Note> callback);
 
-    Note update(@NonNull Note note, @Nullable String title, @Nullable Date date);
+    void remove(Note note, Callback<Object> callback);
+
+    Note update(@NonNull Note note, @Nullable String title, @Nullable String text, @Nullable Date date);
+
+
 }

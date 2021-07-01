@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.geekbrains.lavsam.notes8.R;
 import com.geekbrains.lavsam.notes8.domain.Note;
+import com.geekbrains.lavsam.notes8.ui.auth.AuthFragment;
 import com.geekbrains.lavsam.notes8.ui.info.InfoFragment;
 import com.geekbrains.lavsam.notes8.ui.notes.NotesFragment;
 import com.geekbrains.lavsam.notes8.ui.update.UpdateNoteFragment;
@@ -20,6 +21,13 @@ public class MainRouter {
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.container, NotesFragment.newInstance(), NotesFragment.TAG)
+                .commit();
+    }
+
+    public void showAuth() {
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.container, AuthFragment.newInstance(), AuthFragment.TAG)
                 .commit();
     }
 

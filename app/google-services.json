@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "673469576449",
+    "project_id": "lav-notes",
+    "storage_bucket": "lav-notes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673469576449:android:86b021f20b285e97c69700",
+        "android_client_info": {
+          "package_name": "com.geekbrains.lavsam.notes8"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673469576449-os38ck9ls0ve3a94slnpmai282obnvai.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.geekbrains.lavsam.notes8",
+            "certificate_hash": "00e6a21077dc8e15bba0df0dd6366a6f0134d803"
+          }
+        },
+        {
+          "client_id": "673469576449-98mvnda0mdu9oiprglo5avjmd3tgm8c8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9pvyMEKEDGd10L-mrXgSoGCDu3zMMu4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673469576449-98mvnda0mdu9oiprglo5avjmd3tgm8c8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

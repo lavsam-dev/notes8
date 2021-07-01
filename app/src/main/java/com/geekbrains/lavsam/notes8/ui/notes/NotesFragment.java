@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.geekbrains.lavsam.notes8.R;
 import com.geekbrains.lavsam.notes8.RouterHolder;
+import com.geekbrains.lavsam.notes8.domain.Callback;
 import com.geekbrains.lavsam.notes8.domain.Note;
+import com.geekbrains.lavsam.notes8.domain.NotesFirestoreRepository;
 import com.geekbrains.lavsam.notes8.domain.NotesRepository;
 import com.geekbrains.lavsam.notes8.domain.NotesRepositoryImpl;
 import com.geekbrains.lavsam.notes8.ui.MainActivity;
@@ -28,7 +30,7 @@ import java.util.List;
 public class NotesFragment extends Fragment {
 
     public static final String TAG = "NotesFragment";
-    private NotesRepository repository = NotesRepositoryImpl.INSTANCE;
+    private NotesRepository repository = NotesFirestoreRepository.INSTANCE;
     private NotesAdapter notesAdapter;
 
     private int longClickedIndex;
@@ -43,6 +45,15 @@ public class NotesFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         notesAdapter = new NotesAdapter(this);
+
+        repository.getNotes(new Callback<List<Note>>() {
+            @Override
+            public void onSuccess(List<Note> result) {
+                notesAdapter.setData(result);
+                notesAdapter.notifyDataSetChanged();
+
+            }
+        });
 
         notesAdapter.setListener(new NotesAdapter.OnNoteClickedListener() {
             @Override
@@ -83,21 +94,32 @@ public class NotesFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.action_add) {
-                    Note addedNote = repository.add("НЕобыкновенная чечевица (Carpodacus erythrinus)",
+
+                    repository.add("НЕобыкновенная чечевица (Carpodacus erythrinus)",
                             "В лесах Самарской области рядом с открытыми просторами живет оседло НЕобыкновенная чечевица!",
-                            "https://www.niasam.ru/allimages/109826.jpg");
+                            "https://www.niasam.ru/allimages/109826.jpg",
+                            new Callback<Note>() {
+                        @Override
+                        public void onSuccess(Note result) {
 
-                    int index = notesAdapter.add(addedNote);
+                            int index = notesAdapter.add(result);
 
-                    notesAdapter.notifyItemInserted(index);
+                            notesAdapter.notifyItemInserted(index);
 
-                    notesList.scrollToPosition(index);
+                            notesList.scrollToPosition(index);
+                        }
+                    });
 
                     return true;
                 }
                 if (item.getItemId() == R.id.action_clear) {
                     repository.clear();
                     notesAdapter.setData(Collections.emptyList());
+                    notesAdapter.notifyDataSetChanged();
+                    return true;
+                }
+                if (item.getItemId() == R.id.action_restore) {
+                    repository.restore();
                     notesAdapter.notifyDataSetChanged();
                     return true;
                 }
@@ -110,10 +132,6 @@ public class NotesFragment extends Fragment {
         notesList.setLayoutManager(linearLayoutManager);
 
         notesList.setAdapter(notesAdapter);
-
-        List<Note> notes = repository.getNotes();
-
-        notesAdapter.setData(notes);
 
     }
 
@@ -139,9 +157,15 @@ public class NotesFragment extends Fragment {
 
         if (item.getItemId() == R.id.action_delete) {
 
-            repository.remove(longClickedNote);
-            notesAdapter.remove(longClickedNote);
-            notesAdapter.notifyItemRemoved(longClickedIndex);
+            repository.remove(longClickedNote, new Callback<Object>() {
+                @Override
+                public void onSuccess(Object result) {
+                    notesAdapter.remove(longClickedNote);
+
+                    notesAdapter.notifyItemRemoved(longClickedIndex);
+                }
+            });
+
             return true;
         }
         return super.onContextItemSelected(item);
