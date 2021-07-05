@@ -1,5 +1,6 @@
 package com.geekbrains.lavsam.notes8.ui.notes;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -157,14 +159,31 @@ public class NotesFragment extends Fragment {
 
         if (item.getItemId() == R.id.action_delete) {
 
-            repository.remove(longClickedNote, new Callback<Object>() {
-                @Override
-                public void onSuccess(Object result) {
-                    notesAdapter.remove(longClickedNote);
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.alert_remove_title)
+                    .setMessage(longClickedNote.getTitle())
+                    .setIcon(R.drawable.ic_remove_dialog)
+                    .setPositiveButton(R.string.alert_remove_btn_positive, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            repository.remove(longClickedNote, new Callback<Object>() {
+                                @Override
+                                public void onSuccess(Object result) {
+                                    notesAdapter.remove(longClickedNote);
 
-                    notesAdapter.notifyItemRemoved(longClickedIndex);
-                }
-            });
+                                    notesAdapter.notifyItemRemoved(longClickedIndex);
+                                }
+                            });
+                        }
+                    })
+                    .setNegativeButton(R.string.alert_remove_btn_negative, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+            builder.show();
 
             return true;
         }

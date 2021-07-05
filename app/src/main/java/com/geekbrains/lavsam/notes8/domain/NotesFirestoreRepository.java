@@ -13,6 +13,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -159,7 +160,7 @@ public class NotesFirestoreRepository implements NotesRepository {
                                 Note noteAdd = new Note(task.getResult().getId(),
                                         note.getTitle(), note.getText(), note.getUrl(), date);
 
-                                callback.onSuccess((List<Note>) noteAdd);
+                                callback.onSuccess(Collections.singletonList(noteAdd));
                             }
                         }
                     });

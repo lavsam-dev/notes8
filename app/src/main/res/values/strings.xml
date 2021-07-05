@@ -1,17 +1,21 @@
 <resources>
     <string name="app_name">Notes8</string>
-    <string name="action_notes">notes</string>
-    <string name="action_info">info</string>
+    <string name="action_notes">Список заметок</string>
+    <string name="action_info">Информация</string>
     <string name="i_m_info">Заметки о птицах Самарской области</string>
     <string name="notes_title">Заметки</string>
-    <string name="i_am_a_header_here">I\'m a header here</string>
-    <string name="i_am_a_text_here">Text about birds</string>
-    <string name="action_add">Add</string>
-    <string name="action_clear">Clear</string>
-    <string name="action_update">Update</string>
-    <string name="action_delete">Delete</string>
-    <string name="update_fragment">Fragment Update</string>
-    <string name="title_hint">Title</string>
-    <string name="action_done">Done</string>
-    <string name="action_restore">Restore</string>
+    <string name="i_am_a_header_here">Заголовок тута</string>
+    <string name="i_am_a_text_here">Тексты о птичках</string>
+    <string name="action_add">Добавить</string>
+    <string name="action_clear">Очистить</string>
+    <string name="action_update">Изменить</string>
+    <string name="action_delete">Удалить</string>
+    <string name="update_fragment">Обновление</string>
+    <string name="title_hint">Заголовок</string>
+    <string name="action_done">Готово</string>
+    <string name="action_restore">Восстановить</string>
+    <string name="alert_remove_title">Удалить?</string>
+    <string name="alert_remove_message">Удалить?</string>
+    <string name="alert_remove_btn_positive">Да</string>
+    <string name="alert_remove_btn_negative">Нет</string>
 </resources>
