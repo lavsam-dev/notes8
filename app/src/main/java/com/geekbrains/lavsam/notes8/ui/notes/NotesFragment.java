@@ -159,11 +159,10 @@ public class NotesFragment extends Fragment {
 
         if (item.getItemId() == R.id.action_delete) {
 
-            String removeMessage = longClickedNote.getTitle();
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
                     .setTitle(R.string.alert_remove_title)
-                    .setMessage(removeMessage)
-                    .setIcon(R.drawable.ic_clear)
+                    .setMessage(longClickedNote.getTitle())
+                    .setIcon(R.drawable.ic_remove_dialog)
                     .setPositiveButton(R.string.alert_remove_btn_positive, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
